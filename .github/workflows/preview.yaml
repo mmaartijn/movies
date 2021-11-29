@@ -1,4 +1,5 @@
-on: 
+# file: .github/workflows/preview.yaml
+on:
   pull_request:
     branches:
       - main
@@ -11,12 +12,11 @@ jobs:
       uses: okteto/context@latest
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
-        url: ${{ secrets.OKTETO_URL }}
-
+       
     - name: Deploy preview environment
       uses: okteto/deploy-preview@latest
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         name: pr-${{ github.event.number }}-cindylopez
-        scope: personal
+        timeout: 15m
